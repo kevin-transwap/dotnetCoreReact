@@ -17,7 +17,21 @@ export const HomePage = () => {
 
   useEffect(() => {
     console.log('first rendered');
+
+    const doGetUnansweredQuestions = async () => {
+      const unansweredQuestions = await getUnansweredQuestions();
+      setQuestions(unansweredQuestions);
+      setQuestionsLoading(false);
+    };
+    doGetUnansweredQuestions();
+
+    //const questions = await getUnansweredQuestions();
   }, []);
+
+  const handleAskQuestionClick = () => {
+    console.log('TODO - move to the AskPage');
+  };
+
   return (
     <Page>
       <div
@@ -35,11 +49,26 @@ export const HomePage = () => {
           `}
         >
           <PageTitle>Unanswered Questions</PageTitle>
-          <PrimaryButton>Ask a question</PrimaryButton>
+          <PrimaryButton onClick={handleAskQuestionClick}>
+            Ask a question
+          </PrimaryButton>
         </div>
         {/* <QuestionList data={getUnansweredQuestions()} /> */}
       </div>
+      {questionsLoading ? (
+        <div
+          css={css`
+            font-size: 16px;
+            font-style: italic;
+          `}
+        >
+          Loading...
+        </div>
+      ) : (
+        <QuestionList data={questions || []} />
+      )}
     </Page>
   );
 };
+
 // renderItem={renderQuestion}
