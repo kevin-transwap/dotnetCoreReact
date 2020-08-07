@@ -1,0 +1,9 @@
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\BCA.csprojAssemblyReference.cache
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\BCA.AssemblyInfoInputs.cache
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\BCA.AssemblyInfo.cs
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\BCA.RazorTargetAssemblyInfo.cache
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\staticwebassets\BCA.StaticWebAssets.Manifest.cache
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\staticwebassets\BCA.StaticWebAssets.xml

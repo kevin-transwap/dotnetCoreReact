@@ -1,0 +1,12 @@
+{
+    "eslint.validate":  [
+    "javascript",
+    "javascriptreack"
+    ],
+    "editor.formatOnSave":true
+}
+
+/*
+    {"language":"typescript", "autoFix":true},
+    {"language":"typescript", "autoFix":true}
+    */
