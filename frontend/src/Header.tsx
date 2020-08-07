@@ -4,12 +4,18 @@ import { PrimaryButton } from './Styles';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { fontFamily, fontSize, gray1, gray2, gray5 } from './Styles';
-import { ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { ChangeEvent, FC, useState } from 'react';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-export const Header = () => {
+export const Header: FC<RouteComponentProps> = ({ history, location }) => {
+  const searchParams = new URLSearchParams(location.search);
+  const criteria = searchParams.get('criteria') || '';
+
+  const [search, setSearch] = useState(criteria);
+
   const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.currentTarget.value);
+    setSearch(e.currentTarget.value);
+    //console.log(e.currentTarget.value);
   };
 
   return (
@@ -39,26 +45,29 @@ export const Header = () => {
       >
         Q & A
       </Link>
-      <input
-        type="text"
-        placeholder="Search..."
-        onChange={handleSearchInputChange}
-        css={css`
-          box-sizing: border-box;
-          font-family: ${fontFamily};
-          font-size: ${fontSize};
-          padding: 8px 10px;
-          border: 1px solid ${gray5};
-          border-radius: 3px;
-          color: ${gray2};
-          background-color: white;
-          width: 200px;
-          height: 30px;
-          :focus {
-            outline-color: ${gray5};
-          }
-        `}
-      />
+      <form>
+        <input
+          type="text"
+          placeholder="Search..."
+          value={search}
+          onChange={handleSearchInputChange}
+          css={css`
+            box-sizing: border-box;
+            font-family: ${fontFamily};
+            font-size: ${fontSize};
+            padding: 8px 10px;
+            border: 1px solid ${gray5};
+            border-radius: 3px;
+            color: ${gray2};
+            background-color: white;
+            width: 200px;
+            height: 30px;
+            :focus {
+              outline-color: ${gray5};
+            }
+          `}
+        />
+      </form>
       <Link
         to="/signin"
         css={css`
@@ -83,3 +92,7 @@ export const Header = () => {
     </div>
   );
 };
+
+//need to wrap the component with the withRouter function to get history, location props passed into it.
+
+export const HeaderWithRouter = withRouter(Header);

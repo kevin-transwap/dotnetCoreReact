@@ -2,7 +2,7 @@ import React from 'react';
 //{ lazy, Suspense } from 'react';
 //import logo from './logo.svg';
 //import './App.css';
-import { Header } from './Header';
+import { HeaderWithRouter as Header } from './Header';
 import { HomePage } from './HomePage';
 
 /** @jsx jsx */

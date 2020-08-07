@@ -9,6 +9,9 @@ import { gray3, gray6 } from './Styles';
 import { QuestionData, getQuestion } from './QuestionsData';
 import { AnswerList } from './AnswerList';
 
+import { Form, required, minLength } from './Form';
+import { Field } from './Field';
+
 interface RouteParams {
   questionId: string;
 }
@@ -74,6 +77,23 @@ ${question.created.toLocaleDateString()}
 ${question.created.toLocaleTimeString()}`}
             </div>
             <AnswerList data={question.answers} />
+            <div
+              css={css`
+                margin-top: 20px;
+              `}
+            >
+              <Form
+                submitCaption="Submit Your Answer"
+                validationRules={{
+                  content: [
+                    { validator: required },
+                    { validator: minLength, arg: 50 },
+                  ],
+                }}
+              >
+                <Field name="content" label="Your Answer" type="TextArea" />
+              </Form>
+            </div>
           </Fragment>
         )}
       </div>
