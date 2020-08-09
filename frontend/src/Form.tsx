@@ -1,4 +1,4 @@
-import React, { FC, useState, createContext } from 'react';
+import React, { FC, useState, createContext, FormEvent } from 'react';
 import { PrimaryButton, gray5, gray6 } from './Styles';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
@@ -18,6 +18,9 @@ export interface Touched {
 interface Props {
   submitCaption?: string;
   validationRules?: ValidationProp;
+  onSubmit: (values: Values) => Promise<SubmitResult>;
+  successMessage?: string;
+  failureMessage?: string;
 }
 
 interface FormContextProps {
@@ -27,6 +30,11 @@ interface FormContextProps {
   validate?: (fieldName: string) => void;
   touched: Touched;
   setTouched?: (fieldName: string) => void;
+}
+
+export interface SubmitResult {
+  success: boolean;
+  errors?: Errors;
 }
 
 export const FormContext = createContext<FormContextProps>({
@@ -56,14 +64,22 @@ interface ValidationProp {
 }
 //export const Form: FC<Props> = ({ submitCaption, children }) => null;
 
+///////////////////////////////////////
+//////////////////////////////////////
 export const Form: FC<Props> = ({
   submitCaption,
   children,
   validationRules,
+  onSubmit,
+  successMessage = 'Success!',
+  failureMessage = 'Something went wrong',
 }) => {
   const [values, setValues] = useState<Values>({});
   const [errors, setErrors] = useState<Errors>({});
   const [touched, setTouched] = useState<Touched>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const validate = (fieldName: string): string[] => {
     if (!validationRules) {
@@ -88,6 +104,39 @@ export const Form: FC<Props> = ({
     //return [];
   };
 
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (validateForm()) {
+      // TODO - set state to indicate submission is in progress
+      setSubmitting(true);
+
+      setSubmitError(false);
+      // TODO - call the consumer submit function
+
+      // TODO - set any errors in state
+      const result = await onSubmit(values);
+      setErrors(result.errors || {});
+      setSubmitError(!result.success);
+      // TODO - set state to indicate submission has finished
+      setSubmitting(false);
+      setSubmitted(true);
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors: Errors = {};
+    let haveError: boolean = false;
+    if (validationRules) {
+      Object.keys(validationRules).forEach((fieldName) => {
+        if (newErrors[fieldName].length > 0) {
+          haveError = true;
+        }
+      });
+    }
+    setErrors(newErrors);
+    return !haveError;
+  };
+
   return (
     <FormContext.Provider
       value={{
@@ -103,8 +152,9 @@ export const Form: FC<Props> = ({
         },
       }}
     >
-      <form noValidate={true}>
+      <form noValidate={true} onSubmit={handleSubmit}>
         <fieldset
+          disabled={submitting || (submitted && !submitError)}
           css={css`
             margin: 10px auto 0 auto;
             padding: 30px;
@@ -124,6 +174,24 @@ export const Form: FC<Props> = ({
             `}
           >
             <PrimaryButton type="submit">{submitCaption}</PrimaryButton>
+            {submitted && submitError && (
+              <p
+                css={css`
+                  color: red;
+                `}
+              >
+                {failureMessage}
+              </p>
+            )}
+            {submitted && !submitError && (
+              <p
+                css={css`
+                  color: green;
+                `}
+              >
+                {successMessage}
+              </p>
+            )}
           </div>
         </fieldset>
       </form>
