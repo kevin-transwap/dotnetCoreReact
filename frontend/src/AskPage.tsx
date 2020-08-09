@@ -1,19 +1,63 @@
-import React from 'react';
+import React, { FC, useEffect } from 'react';
 import { Page } from './Page';
-import { Form, required, minLength, Values } from './Form';
+import { Form, required, minLength, Values, SubmitResult } from './Form';
 import { Field } from './Field';
 import { postQuestion } from './QuestionsData';
+import { PostQuestionData, QuestionData } from './QuestionsData';
 
-export const AskPage = () => {
-  const handleSubmit = async (values: Values) => {
-    const question = await postQuestion({
+import { connect } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import {
+  postQuestionActionCreator,
+  AppState,
+  clearPostedQuestionActionCreator,
+} from './Store';
+import { AnyAction } from 'redux';
+
+interface Props {
+  postQuestion: (question: PostQuestionData) => Promise<void>;
+  postedQuestionResult?: QuestionData;
+  clearPostedQuestion: () => void;
+}
+
+//.////////////
+//////////
+
+//export
+const AskPage: FC<Props> = ({
+  postQuestion,
+  postedQuestionResult,
+  clearPostedQuestion,
+}) => {
+  useEffect(() => {
+    return function cleanUp() {
+      clearPostedQuestion();
+    };
+  }, [clearPostedQuestion]);
+
+  // const handleSubmit = async (values: Values) => {
+  //   const question = await postQuestion({
+  //     title: values.title,
+  //     content: values.content,
+  //     userName: 'Fred',
+  //     created: new Date(),
+  //   });
+  //   return { success: question ? true : false };
+  // };
+
+  const handleSubmit = (values: Values) => {
+    postQuestion({
       title: values.title,
       content: values.content,
       userName: 'Fred',
       created: new Date(),
     });
-    return { success: question ? true : false };
   };
+
+  let submitResult: SubmitResult | undefined;
+  if (postedQuestionResult) {
+    submitResult = { success: postedQuestionResult !== undefined };
+  }
 
   return (
     <Page title="Ask a question">
@@ -24,6 +68,7 @@ export const AskPage = () => {
           content: [{ validator: required }, { validator: minLength, arg: 50 }],
         }}
         onSubmit={handleSubmit}
+        submitResult={submitResult}
         failureMessage="There was a problem with your question"
         successMessage="Your question was successfully submitted"
       >
@@ -33,4 +78,18 @@ export const AskPage = () => {
     </Page>
   );
 };
-export default AskPage;
+
+const mapStateToProps = (store: AppState) => {
+  return {
+    postedQuestionResult: store.questions.postedResult,
+  };
+};
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
+  return {
+    postQuestion: (question: PostQuestionData) =>
+      dispatch(postQuestionActionCreator(question)),
+    clearPostedQuestion: () => dispatch(clearPostedQuestionActionCreator()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(AskPage);
+//export default AskPage;

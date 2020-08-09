@@ -18,7 +18,8 @@ export interface Touched {
 interface Props {
   submitCaption?: string;
   validationRules?: ValidationProp;
-  onSubmit: (values: Values) => Promise<SubmitResult>;
+  onSubmit: (values: Values) => Promise<SubmitResult> | void;
+  submitResult?: SubmitResult;
   successMessage?: string;
   failureMessage?: string;
 }
@@ -71,6 +72,7 @@ export const Form: FC<Props> = ({
   children,
   validationRules,
   onSubmit,
+  submitResult,
   successMessage = 'Success!',
   failureMessage = 'Something went wrong',
 }) => {
@@ -115,6 +117,10 @@ export const Form: FC<Props> = ({
 
       // TODO - set any errors in state
       const result = await onSubmit(values);
+      // The result may be passed through as a prop
+      if (result === undefined) {
+        return;
+      }
       setErrors(result.errors || {});
       setSubmitError(!result.success);
       // TODO - set state to indicate submission has finished
@@ -137,6 +143,16 @@ export const Form: FC<Props> = ({
     return !haveError;
   };
 
+  const disabled = submitResult
+    ? submitResult.success
+    : submitting || (submitted && !submitError);
+  const showError = submitResult
+    ? !submitResult.success
+    : submitted && submitError;
+  const showSuccess = submitResult
+    ? submitResult.success
+    : submitted && !submitError;
+
   return (
     <FormContext.Provider
       value={{
@@ -154,7 +170,8 @@ export const Form: FC<Props> = ({
     >
       <form noValidate={true} onSubmit={handleSubmit}>
         <fieldset
-          disabled={submitting || (submitted && !submitError)}
+          //disabled={submitting || (submitted && !submitError)}
+          disabled={disabled}
           css={css`
             margin: 10px auto 0 auto;
             padding: 30px;
@@ -174,24 +191,30 @@ export const Form: FC<Props> = ({
             `}
           >
             <PrimaryButton type="submit">{submitCaption}</PrimaryButton>
-            {submitted && submitError && (
-              <p
-                css={css`
-                  color: red;
-                `}
-              >
-                {failureMessage}
-              </p>
-            )}
-            {submitted && !submitError && (
-              <p
-                css={css`
-                  color: green;
-                `}
-              >
-                {successMessage}
-              </p>
-            )}
+            {
+              //submitted && submitError
+              showError && (
+                <p
+                  css={css`
+                    color: red;
+                  `}
+                >
+                  {failureMessage}
+                </p>
+              )
+            }
+            {
+              //submitted && !submitError
+              showSuccess && (
+                <p
+                  css={css`
+                    color: green;
+                  `}
+                >
+                  {successMessage}
+                </p>
+              )
+            }
           </div>
         </fieldset>
       </form>

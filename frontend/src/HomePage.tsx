@@ -4,30 +4,56 @@ import { PrimaryButton } from './Styles';
 import { css, jsx } from '@emotion/core';
 
 import { QuestionList } from './QuestionList';
-import { getUnansweredQuestions, QuestionData } from './QuestionsData';
+import {
+  //getUnansweredQuestions,
+  QuestionData,
+} from './QuestionsData';
 import { Page } from './Page';
 import { PageTitle } from './PageTitle';
 import { useEffect, useState, FC } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+
+import { getUnansweredQuestionsActionCreator, AppState } from './Store';
+
 //const renderQuestion = (question: QuestionData) => <div>{question.title}</div>;
 
-export const HomePage: FC<RouteComponentProps> = ({ history }) => {
-  const [questions, setQuestions] = useState<QuestionData[] | null>(null);
-  const [questionsLoading, setQuestionsLoading] = useState(true);
+interface Props extends RouteComponentProps {
+  getUnansweredQuestions: () => Promise<void>;
+  questions: QuestionData[] | null;
+  questionsLoading: boolean;
+}
+
+//export
+const HomePage: FC<Props> = ({
+  history,
+  questions,
+  questionsLoading,
+  getUnansweredQuestions,
+}) => {
+  //const [questions, setQuestions] = useState<QuestionData[] | null>(null);
+  //const [questionsLoading, setQuestionsLoading] = useState(true);
 
   useEffect(() => {
-    console.log('first rendered');
+    if (questions === null) {
+      getUnansweredQuestions();
+    }
+  }, [questions, getUnansweredQuestions]);
+  //   console.log('first rendered');
 
-    const doGetUnansweredQuestions = async () => {
-      const unansweredQuestions = await getUnansweredQuestions();
-      setQuestions(unansweredQuestions);
-      setQuestionsLoading(false);
-    };
-    doGetUnansweredQuestions();
+  //   const doGetUnansweredQuestions = async () => {
 
-    //const questions = await getUnansweredQuestions();
-  }, []);
+  //     const unansweredQuestions = await getUnansweredQuestions();
+  //     setQuestions(unansweredQuestions);
+  //     setQuestionsLoading(false);
+  //   };
+  //   doGetUnansweredQuestions();
+
+  //   //const questions = await getUnansweredQuestions();
+  // }, []);
 
   const handleAskQuestionClick = () => {
     history.push('/ask');
@@ -74,3 +100,19 @@ export const HomePage: FC<RouteComponentProps> = ({ history }) => {
 };
 
 // renderItem={renderQuestion}
+
+const mapStateToProps = (store: AppState) => {
+  return {
+    questions: store.questions.unanswered,
+    questionsLoading: store.questions.loading,
+  };
+};
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
+  return {
+    getUnansweredQuestions: () =>
+      dispatch(getUnansweredQuestionsActionCreator()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
