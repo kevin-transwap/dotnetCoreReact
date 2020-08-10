@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using DbUp;
+
 namespace BCA
 {
     public class Startup
@@ -25,6 +27,22 @@ namespace BCA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            EnsureDatabase.For.SqlDatabase(connectionString);
+            // TODO - Create and configure an instance of the DbUp upgrader
+            var upgrader = DeployChanges.To.SqlDatabase(connectionString, null)
+                .WithScriptsEmbeddedInAssembly(System.Reflection.Assembly.GetExecutingAssembly())
+                .WithTransaction()
+                .Build();
+
+            // TODO - Do a database migration if there are any pending SQL
+            //Scripts
+            if (upgrader.IsUpgradeRequired())
+            {
+                upgrader.PerformUpgrade();
+            }
+
             services.AddControllers();
         }
 
