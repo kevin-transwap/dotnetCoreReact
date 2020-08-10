@@ -7,3 +7,12 @@ C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\BCA.A
 C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\BCA.RazorTargetAssemblyInfo.cache
 C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\staticwebassets\BCA.StaticWebAssets.Manifest.cache
 C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\staticwebassets\BCA.StaticWebAssets.xml
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\BCA.exe
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\Dapper.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\BCA.csproj.CopyComplete
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
