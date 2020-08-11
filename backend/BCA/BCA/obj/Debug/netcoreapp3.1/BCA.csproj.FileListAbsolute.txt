@@ -16,3 +16,17 @@ C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\runti
 C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\BCA.csproj.CoreCompileInputs.cache
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\BCA.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\BCA.deps.json
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\BCA.runtimeconfig.json
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\BCA.runtimeconfig.dev.json
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\BCA.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\BCA.pdb
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\dbup-core.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\dbup-sqlserver.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\Microsoft.Azure.Services.AppAuthentication.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\BCA.dll
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\BCA.pdb
+C:\Users\kevin\Documents\Codes\BCA\backend\BCA\BCA\obj\Debug\netcoreapp3.1\BCA.genruntimeconfig.cache

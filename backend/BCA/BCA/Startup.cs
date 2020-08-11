@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 
 using DbUp;
 
+using BCA.Data;
+
 namespace BCA
 {
     public class Startup
@@ -44,6 +46,9 @@ namespace BCA
             }
 
             services.AddControllers();
+
+            //one instance of the DataRepository class is created in a given HTTP request
+            services.AddScoped<IDataRepository, DataRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
